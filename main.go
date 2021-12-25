@@ -127,16 +127,18 @@ func ReplaceMapCycle(lines []string, customMaps []string) []string {
 
 func main() {
 
+	var steamItem []string
 	if len(os.Args) < 2 {
-		fmt.Println("call with: " + os.Args[0] + "<steam-item-id1> <steam-item-id2> ...")
-		return
+		fmt.Println("No Cmdline arguments, reading from maps.txt")
+		steamItem = ReadLines("maps.txt")
+	} else {
+		steamItem = os.Args[1:]
 	}
 
 	basePath, err := os.Getwd() //"C:\\Program Files (x86)\\Steam\\kf2_ds"
 	if err != nil {
 		panic(err)
 	}
-	steamItem := os.Args[1:]
 
 	engineConfigPath := basePath + "\\KFGame\\Config\\PCServer-KFEngine.ini"
 	gameConfigPath := basePath + "\\KFGame\\Config\\PCServer-KFGame.ini"
